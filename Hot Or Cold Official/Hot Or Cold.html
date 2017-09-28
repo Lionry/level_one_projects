@@ -8,12 +8,15 @@
 			function initialize()
 			{
 				numGuess = 1;
-				degree = document.getElementById("degreeOfGuess");
+				currentGuess = "";
 				generateNumber();
+			}
+			function buildGuess(num){
+				currentGuess = currentGuess + num;
+				document.getElementById("currentGuess").innerHTML = currentGuess;
 			}
 			function generateNumber(){
 				targetNum = (Math.random() * 100).toFixed(0);
-				console.log(targetNum);
 			}
 			function enterGuess(){
 				calculateDifference();
@@ -21,14 +24,15 @@
 					degreeOfGuess.innerHTML = "You're out of guesses!"
 					endGame();
 				}
+				currentGuess = "";
+				buildGuess("");
 				numGuess = numGuess + 1;
 			}
 			function calculateDifference(){
-				userGuess = document.getElementById("userInput").value;
-				if(userGuess < 0 || userGuess > 100){
+				if(currentGuess < 0 || currentGuess > 100){
 					alert("Please enter a value from 0-100")
 				}else {
-				difference = Math.abs(targetNum - userGuess);
+				difference = Math.abs(targetNum - currentGuess);
 				calculateDegree();
 				}
 			}
@@ -66,13 +70,26 @@
 	<body onload = "initialize();">
 	<h3>Hot Or Cold</h3>
 	<p>In this game you must guess the hidden number based on hot or cold clues</p>
+	<p>The hidden number is a number between 0-100</p>
 	<p>You get 5 guesses to get the number correct</p>
 	<p>If you get it correct "You got it!!" will show up</p>
-		<form>
-		Guess 0-100: <input id = "userInput" type="number" name="0-100"><br/>
+	<p>Current Guess: <span id = "currentGuess"></span></p>
+		<p>
+			<button onclick = "buildGuess(1);" id = "buttonOne">1</button>
+			<button onclick = "buildGuess(2);" id = "buttonOne">2</button>
+			<button onclick = "buildGuess(3);" id = "buttonOne">3</button>
+			<button onclick = "buildGuess(4);" id = "buttonOne">4</button>
+			<button onclick = "buildGuess(5);" id = "buttonOne">5</button>
+			<button onclick = "buildGuess(6);" id = "buttonOne">6</button>
+			<button onclick = "buildGuess(7);" id = "buttonOne">7</button>
+			<button onclick = "buildGuess(8);" id = "buttonOne">8</button>
+			<button onclick = "buildGuess(9);" id = "buttonOne">9</button>
+			<button onclick = "buildGuess(0);" id = "buttonOne">0</button>
+		</p>
 		<input id = "enterButton" type = "button" value = "Guess" onclick = "enterGuess();">
-		</form>
 		<div id = "degreeOfGuess"></div>
 		<hr/>
+		<p>Here are the guidelines for the game</p>
+		<img src = "hot_or_cold_guidelines.PNG">
 	</body>
 </html>
