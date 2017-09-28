@@ -1,0 +1,78 @@
+<!DOCTYPE HTML>
+<!--Henry Stanilovsky-->
+
+<html>
+	<head>
+		<title></title>
+		<script>
+			function initialize()
+			{
+				numGuess = 1;
+				degree = document.getElementById("degreeOfGuess");
+				generateNumber();
+			}
+			function generateNumber(){
+				targetNum = (Math.random() * 100).toFixed(0);
+				console.log(targetNum);
+			}
+			function enterGuess(){
+				calculateDifference();
+				if (numGuess == 5){
+					degreeOfGuess.innerHTML = "You're out of guesses!"
+					endGame();
+				}
+				numGuess = numGuess + 1;
+			}
+			function calculateDifference(){
+				userGuess = document.getElementById("userInput").value;
+				if(userGuess < 0 || userGuess > 100){
+					alert("Please enter a value from 0-100")
+				}else {
+				difference = Math.abs(targetNum - userGuess);
+				calculateDegree();
+				}
+			}
+			function calculateDegree(){
+				if(difference > 55){
+					degreeOfGuess.innerHTML = "You are very cold";
+				}else if(difference <= 55 && difference > 40){
+					degreeOfGuess.innerHTML = "You are cold";
+				}else if(difference <= 40 && difference > 30){
+					degreeOfGuess.innerHTML = "You are very cool";
+				}else if(difference <= 30 && difference > 20){
+					degreeOfGuess.innerHTML = "You are cool";
+				}else if(difference <= 20 && difference > 15){
+					degreeOfGuess.innerHTML = "You are warm";
+				}else if(difference <= 15 && difference > 8){
+					degreeOfGuess.innerHTML = "You are very warm";
+				}else if(difference <= 8 && difference > 5){
+					degreeOfGuess.innerHTML = "You are hot";
+				}else if(difference <= 5 && difference > 0){
+					degreeOfGuess.innerHTML = "You are very hot";
+				}else if(difference === 0){
+					degreeOfGuess.innerHTML = "You got it!!";
+					endGame();
+				}
+			}
+			function endGame(){
+				document.getElementById("enterButton").style.display="none"
+			}
+		</script>
+		<style>
+
+		</style>
+	</head>
+
+	<body onload = "initialize();">
+	<h3>Hot Or Cold</h3>
+	<p>In this game you must guess the hidden number based on hot or cold clues</p>
+	<p>You get 5 guesses to get the number correct</p>
+	<p>If you get it correct "You got it!!" will show up</p>
+		<form>
+		Guess 0-100: <input id = "userInput" type="number" name="0-100"><br/>
+		<input id = "enterButton" type = "button" value = "Guess" onclick = "enterGuess();">
+		</form>
+		<div id = "degreeOfGuess"></div>
+		<hr/>
+	</body>
+</html>
